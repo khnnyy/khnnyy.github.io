@@ -1,0 +1,89 @@
+---
+import { siteConfig } from "../config";
+const hasCurrentFocus = siteConfig.currentFocus && (
+  siteConfig.currentFocus.inProgress?.length > 0 ||
+  siteConfig.currentFocus.backlog?.length > 0 ||
+  siteConfig.currentFocus.courses?.length > 0
+);
+---
+
+{
+  hasCurrentFocus && (
+    <section id="current-focus" class="p-8 sm:p-12 md:p-16 lg:p-24">
+      <div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+          <div class="lg:col-span-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl xl:text-7xl font-bold" style="color: var(--color-text-primary)">
+              Current Focus
+            </h2>
+            <div
+              class="w-[75px] h-[5px] mt-2 rounded-full"
+              style={`background-color: ${siteConfig.accentColor}`}
+            />
+          </div>
+
+          <div class="lg:col-span-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* In Progress */}
+              <div class="space-y-4">
+                <h3 class="text-xl font-semibold" style="color: var(--color-text-primary)">
+                  In Progress
+                </h3>
+                <div class="space-y-3">
+                  {siteConfig.currentFocus.inProgress?.map((item, index) => (
+                    <div class="p-4 rounded-lg border-2 backdrop-blur-sm border-gray-200 dark:border-gray-700" style="background-color: var(--color-card); box-shadow: var(--color-shadow)">
+                      <h4 class="text-lg font-medium" style="color: var(--color-text-primary)">
+                        {item.name}
+                      </h4>
+                      <p class="text-sm mt-2" style="color: var(--color-text-secondary)">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Backlog */}
+              <div class="space-y-4">
+                <h3 class="text-xl font-semibold" style="color: var(--color-text-primary)">
+                  Backlog
+                </h3>
+                <div class="space-y-3">
+                  {siteConfig.currentFocus.backlog?.map((item, index) => (
+                    <div class="p-4 rounded-lg border-2 backdrop-blur-sm border-gray-200 dark:border-gray-700" style="background-color: var(--color-card); box-shadow: var(--color-shadow)">
+                      <h4 class="text-lg font-medium" style="color: var(--color-text-primary)">
+                        {item.name}
+                      </h4>
+                      <p class="text-sm mt-2" style="color: var(--color-text-secondary)">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Courses/Certifications */}
+              <div class="space-y-4">
+                <h3 class="text-xl font-semibold" style="color: var(--color-text-primary)">
+                  Courses & Certifications
+                </h3>
+                <div class="space-y-3">
+                  {siteConfig.currentFocus.courses?.map((item, index) => (
+                    <div class="p-4 rounded-lg border-2 backdrop-blur-sm border-gray-200 dark:border-gray-700" style="background-color: var(--color-card); box-shadow: var(--color-shadow)">
+                      <h4 class="text-lg font-medium" style="color: var(--color-text-primary)">
+                        {item.name}
+                      </h4>
+                      <p class="text-sm mt-2" style="color: var(--color-text-secondary)">
+                        {item.description}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

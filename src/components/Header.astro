@@ -4,18 +4,55 @@ import { siteConfig } from "../config";
 const hasProjects = siteConfig.projects && siteConfig.projects.length > 0;
 const hasExperience = siteConfig.experience && siteConfig.experience.length > 0;
 const hasEducation = siteConfig.education && siteConfig.education.length > 0;
+const hasContacts = siteConfig.social && (siteConfig.social.email || siteConfig.social.linkedin || siteConfig.social.github);
 ---
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 hidden md:block transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
 >
   <nav class="max-w-7xl mx-auto px-8 py-4">
-    <ul class="flex items-center gap-8 justify-center">
+    <!-- Mobile menu button -->
+    <div class="md:hidden flex justify-between items-center">
+      <div class="text-xl font-bold" style="color: var(--color-text-primary)">
+        {siteConfig.name.split(' ')[0]}
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- Theme toggle button -->
+        <button
+          id="theme-toggle"
+          class="p-2 rounded-lg transition-all duration-300 ease-in-out"
+          style="color: var(--color-text-secondary)"
+          aria-label="Toggle theme"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+        <!-- Hamburger menu button -->
+        <button
+          id="mobile-menu-button"
+          class="transition-all duration-300 ease-in-out p-2 rounded-lg backdrop-blur-sm"
+          style="color: var(--color-text-secondary)"
+          aria-label="Toggle menu"
+        >
+          <div class="relative w-6 h-6">
+            <!-- Hamburger lines -->
+            <span class="hamburger-line absolute left-0 top-1 w-6 h-0.5 transform transition-all duration-300 ease-in-out origin-center" style="background-color: currentColor"></span>
+            <span class="hamburger-line absolute left-0 top-3 w-6 h-0.5 transform transition-all duration-300 ease-in-out origin-center" style="background-color: currentColor"></span>
+            <span class="hamburger-line absolute left-0 top-5 w-6 h-0.5 transform transition-all duration-300 ease-in-out origin-center" style="background-color: currentColor"></span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Desktop navigation -->
+    <ul class="hidden md:flex items-center gap-8 justify-center">
       <li>
         <a
           href="#about"
-          class="text-gray-700 hover:text-black transition-colors font-medium"
+          class="transition-colors font-medium"
+          style="color: var(--color-text-secondary)"
         >
           About
         </a>
@@ -25,7 +62,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#projects"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              class="transition-colors font-medium"
+              style="color: var(--color-text-secondary)"
             >
               Projects
             </a>
@@ -37,7 +75,8 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#experience"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              class="transition-colors font-medium"
+              style="color: var(--color-text-secondary)"
             >
               Experience
             </a>
@@ -49,24 +88,283 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
           <li>
             <a
               href="#education"
-              class="text-gray-700 hover:text-black transition-colors font-medium"
+              class="transition-colors font-medium"
+              style="color: var(--color-text-secondary)"
             >
               Education
             </a>
           </li>
         )
       }
+      {
+        hasContacts && (
+          <li>
+            <a
+              href="#contacts"
+              class="transition-colors font-medium"
+              style="color: var(--color-text-secondary)"
+            >
+              Contact
+            </a>
+          </li>
+        )
+      }
+      <!-- Theme toggle button -->
+      <li>
+        <button
+          id="theme-toggle-desktop"
+          class="p-2 rounded-lg transition-all duration-300 ease-in-out"
+          style="color: var(--color-text-secondary)"
+          aria-label="Toggle theme"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </button>
+      </li>
     </ul>
+
+    <!-- Mobile navigation -->
+    <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 backdrop-blur-md shadow-lg transform transition-all duration-300 ease-in-out opacity-0 scale-95 translate-y-[-10px]" style="background-color: var(--color-surface); border-top-color: var(--color-border)">
+      <ul class="flex flex-col py-6 max-w-7xl mx-auto">
+        <li>
+          <a
+            href="#about"
+            class="block text-center px-8 py-4 transition-all duration-200 font-medium rounded-lg mx-4"
+            style="color: var(--color-text-primary)"
+          >
+            About
+          </a>
+        </li>
+        {
+          hasProjects && (
+            <li>
+              <a
+                href="#projects"
+                class="block text-center px-8 py-4 transition-all duration-200 font-medium rounded-lg mx-4"
+                style="color: var(--color-text-primary)"
+              >
+                Projects
+              </a>
+            </li>
+          )
+        }
+        {
+          hasExperience && (
+            <li>
+              <a
+                href="#experience"
+                class="block text-center px-8 py-4 transition-all duration-200 font-medium rounded-lg mx-4"
+                style="color: var(--color-text-primary)"
+              >
+                Experience
+              </a>
+            </li>
+          )
+        }
+        {
+          hasEducation && (
+            <li>
+              <a
+                href="#education"
+                class="block text-center px-8 py-4 transition-all duration-200 font-medium rounded-lg mx-4"
+                style="color: var(--color-text-primary)"
+              >
+                Education
+              </a>
+            </li>
+          )
+        }
+        {
+          hasContacts && (
+            <li>
+              <a
+                href="#contacts"
+                class="block text-center px-8 py-4 transition-all duration-200 font-medium rounded-lg mx-4"
+                style="color: var(--color-text-primary)"
+              >
+                Contact
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
   </nav>
 </header>
 
 <script>
+  // Handle scroll effect for header background
   window.addEventListener("scroll", () => {
     const header = document.getElementById("header");
     if (window.scrollY > 100) {
-      header?.classList.add("bg-white/80", "backdrop-blur-sm");
+      header.style.backgroundColor = "var(--color-surface)";
+      header.style.backdropFilter = "blur(12px)";
+      header.style.boxShadow = "var(--color-shadow)";
     } else {
-      header?.classList.remove("bg-white/80", "backdrop-blur-sm");
+      header.style.backgroundColor = "transparent";
+      header.style.backdropFilter = "none";
+      header.style.boxShadow = "none";
+    }
+  });
+
+  // Handle mobile menu toggle
+  document.addEventListener("DOMContentLoaded", () => {
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (mobileMenuButton && mobileMenu) {
+      let isMenuOpen = false;
+
+      const toggleMenu = (show) => {
+        if (show) {
+          mobileMenu.classList.remove("hidden");
+          // Trigger animation
+          setTimeout(() => {
+            mobileMenu.classList.remove("opacity-0", "scale-95", "translate-y-[-10px]");
+            mobileMenu.classList.add("opacity-100", "scale-100", "translate-y-0");
+          }, 10);
+          isMenuOpen = true;
+        } else {
+          mobileMenu.classList.add("opacity-0", "scale-95", "translate-y-[-10px]");
+          mobileMenu.classList.remove("opacity-100", "scale-100", "translate-y-0");
+          // Hide after animation
+          setTimeout(() => {
+            mobileMenu.classList.add("hidden");
+          }, 300);
+          isMenuOpen = false;
+        }
+
+        // Animate hamburger icon
+        const hamburgerLines = mobileMenuButton.querySelectorAll(".hamburger-line");
+        if (hamburgerLines.length === 3) {
+          if (show) {
+            // Animate to X with smooth transitions
+            setTimeout(() => {
+              hamburgerLines[0].style.transform = "rotate(45deg) translate(6px, 6px)";
+              hamburgerLines[2].style.transform = "rotate(-45deg) translate(6px, -6px)";
+            }, 50);
+            setTimeout(() => {
+              hamburgerLines[1].style.opacity = "0";
+            }, 100);
+          } else {
+            // Animate back to hamburger
+            setTimeout(() => {
+              hamburgerLines[1].style.opacity = "1";
+            }, 50);
+            setTimeout(() => {
+              hamburgerLines[0].style.transform = "rotate(0deg) translate(0, 0)";
+              hamburgerLines[2].style.transform = "rotate(0deg) translate(0, 0)";
+            }, 100);
+          }
+        }
+      };
+
+      mobileMenuButton.addEventListener("click", () => {
+        toggleMenu(!isMenuOpen);
+      });
+
+      // Close mobile menu when clicking on a link
+      const mobileLinks = mobileMenu.querySelectorAll("a");
+      mobileLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          toggleMenu(false);
+        });
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", (event) => {
+        if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target) && isMenuOpen) {
+          toggleMenu(false);
+        }
+      });
+    }
+
+    // Theme toggle functionality
+    const themeToggleMobile = document.getElementById("theme-toggle");
+    const themeToggleDesktop = document.getElementById("theme-toggle-desktop");
+
+    // Check for saved theme preference or default to 'auto'
+    const savedTheme = localStorage.getItem('theme') || 'auto';
+    let currentTheme = savedTheme;
+
+    const applyTheme = (theme) => {
+      const root = document.documentElement;
+
+      if (theme === 'dark') {
+        root.style.setProperty('--color-background', '#111827');
+        root.style.setProperty('--color-surface', '#1f2937');
+        root.style.setProperty('--color-text-primary', '#f9fafb');
+        root.style.setProperty('--color-text-secondary', '#d1d5db');
+        root.style.setProperty('--color-text-muted', '#9ca3af');
+        root.style.setProperty('--color-border', '#374151');
+        root.style.setProperty('--color-accent', '#f26628');
+        root.style.setProperty('--color-hover', '#374151');
+        root.style.setProperty('--color-card', '#1f2937');
+        root.style.setProperty('--color-shadow', 'rgba(0, 0, 0, 0.3)');
+      } else if (theme === 'light') {
+        root.style.setProperty('--color-background', '#ffffff');
+        root.style.setProperty('--color-surface', '#ffffff');
+        root.style.setProperty('--color-text-primary', '#111827');
+        root.style.setProperty('--color-text-secondary', '#6b7280');
+        root.style.setProperty('--color-text-muted', '#9ca3af');
+        root.style.setProperty('--color-border', '#e5e7eb');
+        root.style.setProperty('--color-accent', '#f26628');
+        root.style.setProperty('--color-hover', '#f9fafb');
+        root.style.setProperty('--color-card', '#ffffff');
+        root.style.setProperty('--color-shadow', 'rgba(0, 0, 0, 0.1)');
+      } else {
+        // Auto mode - remove overrides to use CSS media query
+        root.style.removeProperty('--color-background');
+        root.style.removeProperty('--color-surface');
+        root.style.removeProperty('--color-text-primary');
+        root.style.removeProperty('--color-text-secondary');
+        root.style.removeProperty('--color-text-muted');
+        root.style.removeProperty('--color-border');
+        root.style.removeProperty('--color-hover');
+        root.style.removeProperty('--color-card');
+        root.style.removeProperty('--color-shadow');
+      }
+
+      // Update icon
+      const icons = [themeToggleMobile, themeToggleDesktop].filter(Boolean);
+      icons.forEach(icon => {
+        const svg = icon.querySelector('svg');
+        if (svg) {
+          if (theme === 'dark') {
+            svg.innerHTML = '<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>';
+          } else if (theme === 'light') {
+            svg.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>';
+          } else {
+            svg.innerHTML = '<path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>';
+          }
+        }
+      });
+    };
+
+    // Apply initial theme
+    applyTheme(currentTheme);
+
+    // Toggle theme function
+    const toggleTheme = () => {
+      if (currentTheme === 'light') {
+        currentTheme = 'dark';
+      } else if (currentTheme === 'dark') {
+        currentTheme = 'auto';
+      } else {
+        currentTheme = 'light';
+      }
+
+      localStorage.setItem('theme', currentTheme);
+      applyTheme(currentTheme);
+    };
+
+    // Add event listeners
+    if (themeToggleMobile) {
+      themeToggleMobile.addEventListener('click', toggleTheme);
+    }
+    if (themeToggleDesktop) {
+      themeToggleDesktop.addEventListener('click', toggleTheme);
     }
   });
 </script>
@@ -74,5 +372,39 @@ const hasEducation = siteConfig.education && siteConfig.education.length > 0;
 <style>
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Hamburger icon animations */
+  .hamburger-line {
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transform-origin: center;
+  }
+
+  /* Add a subtle glow effect on hover */
+  #mobile-menu-button:hover .hamburger-line {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+  }
+
+  /* Make the button more transparent initially */
+  #mobile-menu-button {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  #mobile-menu-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    #mobile-menu-button {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    #mobile-menu-button:hover {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    #mobile-menu-button:hover .hamburger-line {
+      filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1));
+    }
   }
 </style>

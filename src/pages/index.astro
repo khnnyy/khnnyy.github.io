@@ -2,9 +2,11 @@
 import Header from "../components/Header.astro";
 import Hero from "../components/Hero.astro";
 import About from "../components/About.astro";
+import CurrentFocus from "../components/CurrentFocus.astro";
 import Projects from "../components/Projects.astro";
 import Experience from "../components/Experience.astro";
 import Education from "../components/Education.astro";
+import Contacts from "../components/Contacts.astro";
 import Footer from "../components/Footer.astro";
 import { siteConfig } from "../config";
 import "../styles/global.css";
@@ -29,10 +31,12 @@ import "../styles/global.css";
     <Header />
     <section>
       <Hero />
+      <CurrentFocus />
       <About />
       <Projects />
       <Experience />
       <Education />
+      <Contacts />
     </section>
     <Footer />
   </body>

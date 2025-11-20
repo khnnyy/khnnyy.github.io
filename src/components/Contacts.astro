@@ -1,0 +1,66 @@
+---
+import { siteConfig } from "../config";
+---
+
+<section id="contacts" class="p-8 sm:p-12 md:p-16 lg:p-24">
+  <div>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+      <div class="lg:col-span-4">
+        <h2
+          class="text-3xl sm:text-4xl md:text-5xl xl:text-6xl font-bold whitespace-nowrap"
+          style="color: var(--color-text-primary)"
+        >
+          Contact Me
+        </h2>
+        <div
+          class="w-[75px] h-[5px] mt-2 rounded-full"
+          style={`background-color: ${siteConfig.accentColor}`}
+        >
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 space-y-8">
+        <p class="text-lg sm:text-xl md:text-2xl leading-relaxed" style="color: var(--color-text-secondary)">
+          Feel free to reach out to me through any of the following channels:
+        </p>
+
+        <div class="pt-4 space-y-4">
+          <div class="flex items-center space-x-4">
+            <span class="text-lg font-medium" style="color: var(--color-text-primary)">Email:</span>
+            <a
+              href={`mailto:${siteConfig.social.email}`}
+              class="text-lg hover:underline transition-colors duration-200"
+              style="color: var(--color-accent)"
+            >
+              {siteConfig.social.email}
+            </a>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span class="text-lg font-medium" style="color: var(--color-text-primary)">LinkedIn:</span>
+            <a
+              href={siteConfig.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-lg hover:underline transition-colors duration-200"
+              style="color: var(--color-accent)"
+            >
+              linkedin.com/in/al-khadeem-abubakar
+            </a>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span class="text-lg font-medium" style="color: var(--color-text-primary)">GitHub:</span>
+            <a
+              href={siteConfig.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-lg hover:underline transition-colors duration-200"
+              style="color: var(--color-accent)"
+            >
+              github.com/khnnyy
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
