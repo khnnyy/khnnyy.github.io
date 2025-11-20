@@ -4,8 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://khnnyy.github.io/',
-  base: '/',
+  site: 'https://khnnyy.github.io',
   vite: {
     plugins: [tailwindcss()],
   },
