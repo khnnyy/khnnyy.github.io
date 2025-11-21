@@ -64,7 +64,7 @@ import { siteConfig } from "../config";
         <!-- Contact Form -->
         <div class="pt-8">
           <h3 class="text-xl font-semibold mb-4" style="color: var(--color-text-primary)">Send me a message</h3>
-          <form action="https://formspree.io/f/xyzoaada" method="POST" class="space-y-4">
+          <form action="https://formspree.io/f/xyzoaada" method="POST" id="contact-form" class="space-y-4">
             <div>
               <label for="name" class="block text-sm font-medium" style="color: var(--color-text-primary)">Name</label>
               <input
@@ -111,3 +111,59 @@ import { siteConfig } from "../config";
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('#contact-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        try {
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+          if (response.ok) {
+            form.reset();
+            const toast = document.createElement('div');
+            toast.innerHTML = '<div class="flex items-center"><div class="text-green-500 mr-2">✅</div><span>Message sent successfully!</span></div>';
+            toast.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 p-3 rounded-lg shadow-lg popup z-50';
+            toast.style.cssText = 'background-color: var(--color-card); color: var(--color-text-primary); border: 1px solid var(--color-border);';
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          const toast = document.createElement('div');
+          toast.innerHTML = '<div class="flex items-center"><div class="text-red-500 mr-2">❌</div><span>Failed to send message. Please try again.</span></div>';
+          toast.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 p-3 rounded-lg shadow-lg popup z-50';
+          toast.style.cssText = 'background-color: var(--color-card); color: var(--color-text-primary); border: 1px solid var(--color-border);';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+        }
+      });
+    }
+  });
+</script>
+
+<style is:global>
+  .popup {
+    animation: popup 0.5s ease-out;
+  }
+
+  @keyframes popup {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
